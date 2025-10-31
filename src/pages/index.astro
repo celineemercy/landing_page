@@ -1,16 +1,87 @@
 ---
-
+import Layout from '../layouts/layout.astro';
+import ProjectGrid from '../components/project_grid.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Pradita University | IT Projects">
+    <div class="content-wrapper">
+        <header class="main-header">
+            <div class="logo-group">
+                <img src="/public/header_logo_universitas.png" alt="Pradita University" class="logo" />
+                <img src="/public/header_logo_prodi.png" alt="Informatika" class="logo" />
+            </div>
+            <h1 class="main-heading">
+                Engineered for Excellence: See the Projects That <br>
+                Define Our IT Expertise
+            </h1>
+            <section class="project-search-section">
+            <div class="input-container">
+                <input type="text" placeholder="Text" id="search-input" class="search-input" />
+            </div>
+        </header>
+        <ProjectGrid />
+    </div>
+</Layout>
+
+<style is:global>
+    body {
+        font-family: var(--font-titillium);
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff;
+    }
+    .main-header {
+    font-size: 2.5rem; 
+    line-height: 1;
+    color: #0E6333;
+    font-weight: 600;
+    font-style: italic;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.10);
+    margin-bottom: 30px;
+    }
+    .content-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+    .main-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+    .logo-group {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+    .logo {
+        height: 40px;
+        width: auto;
+    }
+    .main-heading {
+        font-size: 1.8rem;
+        color: #0E6333;
+        line-height: 1.4;
+        font-weight: 300;
+    }
+    .main-heading span {
+        font-weight: 600;
+    }
+    .search-input {
+    width: 100%;
+    max-width: 700px;
+    padding: 1% 1%;
+    border: 1px solid #e0e0e0; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    font-size: 1rem;
+    font-family: var(--font-titillium, sans-serif);
+    color: #333; 
+    outline: none; 
+    transition: border-color 0.2s;
+  }
+  .search-input:focus {
+    border-color: #0E6333; 
+    box-shadow: 0 2px 6px rgba(56, 142, 60, 0.2);
+  }
+</style>

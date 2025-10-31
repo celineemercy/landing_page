@@ -1,0 +1,62 @@
+---
+import ProjectCard from './project_card.astro';
+
+const projects = [
+    { title: "IoT Parking System", type: "Artificial Intelligence", description: "Ini merupakan sebuah project yang dibuat untuk memenuhi tugas mata kuliah...", iconUrl: "/public/test_projects_images" },
+    { title: "Judul 2", type: "Artificial Intelligence", description: "Ini merupakan sebuah project untuk menentukan apakah A adalah B.", iconUrl: "/public/2_test_project_logo" },
+    { title: "Judul 3", type: "Artificial Intelligence", description: "Ini merupakan sebuah project untuk menentukan apakah A adalah B.", iconUrl: "/public/3_test_project_logo" },
+    { title: "Judul 4", type: "Artificial Intelligence", description: "Ini merupakan sebuah project yang dibuat untuk memenuhi tugas mata kuliah...", iconUrl: "/public/4_test_project_logo" },
+    { title: "Judul 5", type: "Artificial Intelligence", description: "Ini merupakan sebuah project untuk menentukan apakah A adalah B.", iconUrl: "/public/5_test_project_logo" },
+    { title: "Judul 6", type: "Artificial Intelligence", description: "Ini merupakan sebuah project untuk menentukan apakah A adalah B.", iconUrl: "/public/6_test_project_logo" },
+    { title: "Judul 7", type: "Artificial Intelligence", description: "Ini merupakan sebuah project yang dibuat untuk memenuhi tugas mata kuliah...", iconUrl: "/public/7_test_project_logo" },
+    { title: "Judul 8", type: "Artificial Intelligence", description: "Ini merupakan sebuah project untuk menentukan apakah A adalah B.", iconUrl: "/public/8_test_project_logo" },
+    { title: "Judul 9", type: "Artificial Intelligence", description: "Ini merupakan sebuah project untuk menentukan apakah A adalah B.", iconUrl: "/public/9_test_project_logo" },
+];
+---
+
+<section class="project-grid-container">
+    <h2 class="section-title">Recent Projects by Informatics Students</h2>
+    <div class="project-grid">
+        {projects.map((project) => (
+            <ProjectCard 
+                title={project.title}
+                type={project.type}
+                description={project.description}
+                iconUrl={project.iconUrl}
+            />
+        ))}
+    </div>
+</section>
+
+<style>
+    .project-grid-container {
+        padding: 2rem 0;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+        color: #0E6333;
+        margin-top: 3rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .search-bar-wrapper {
+        margin-bottom: 3rem;
+        max-width: 600px;
+    }
+    
+    .search-input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+
+    .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
+    gap: 1.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    }
+</style>
