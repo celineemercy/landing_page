@@ -1,17 +1,39 @@
 ---
 import ProjectCard from './project_card.astro';
+// 1. Define the API endpoint
+const API_URL = "https://meta.welazure.dev/metadata?pageIndex=1&pageSize=10";
 
-const projects = [
-    { title: "IoT Parking System", type: "Artificial Intelligence", description: "Ini merupakan sebuah project yang dibuat untuk memenuhi tugas mata kuliah...", iconUrl: "/public/test_projects_images" },
-    { title: "Judul 2", type: "Artificial Intelligence", description: "Ini merupakan sebuah project untuk menentukan apakah A adalah B.", iconUrl: "/public/2_test_project_logo" },
-    { title: "Judul 3", type: "Artificial Intelligence", description: "Ini merupakan sebuah project untuk menentukan apakah A adalah B.", iconUrl: "/public/3_test_project_logo" },
-    { title: "Judul 4", type: "Artificial Intelligence", description: "Ini merupakan sebuah project yang dibuat untuk memenuhi tugas mata kuliah...", iconUrl: "/public/4_test_project_logo" },
-    { title: "Judul 5", type: "Artificial Intelligence", description: "Ini merupakan sebuah project untuk menentukan apakah A adalah B.", iconUrl: "/public/5_test_project_logo" },
-    { title: "Judul 6", type: "Artificial Intelligence", description: "Ini merupakan sebuah project untuk menentukan apakah A adalah B.", iconUrl: "/public/6_test_project_logo" },
-    { title: "Judul 7", type: "Artificial Intelligence", description: "Ini merupakan sebuah project yang dibuat untuk memenuhi tugas mata kuliah...", iconUrl: "/public/7_test_project_logo" },
-    { title: "Judul 8", type: "Artificial Intelligence", description: "Ini merupakan sebuah project untuk menentukan apakah A adalah B.", iconUrl: "/public/8_test_project_logo" },
-    { title: "Judul 9", type: "Artificial Intelligence", description: "Ini merupakan sebuah project untuk menentukan apakah A adalah B.", iconUrl: "/public/9_test_project_logo" },
-];
+// 2. Fetch data from your API
+let projects = []; // Start with an empty array
+
+try {
+  const response = await fetch(API_URL);
+  
+  if (response.ok) {
+    const data = await response.json();
+    const projectsFromApi = data.items; // Get the 'items' array from your API
+
+    // 3. Map the API data to the format your ProjectCard component needs
+    projects = projectsFromApi.map((project) => ({
+      title: project.project_name,
+      
+      // Your API doesn't have a 'type' field. 
+      // You can add "project_type": "AI" to your JSON metadata to fix this.
+      // For now, we'll use a placeholder or 'null'.
+      type: project.project_type || "Project", 
+      
+      description: project.project_description,
+      
+      // Use project_logo for the icon. If it's null, use project_image.
+      // Add a fallback to a default image if both are null.
+      iconUrl: project.project_logo || project.project_image || "/images/default_icon.png" 
+    }));
+  } else {
+    console.error("Failed to fetch projects:", response.status);
+  }
+} catch (error) {
+  console.error("Error fetching projects:", error.message);
+}
 ---
 
 <section class="project-grid-container">
