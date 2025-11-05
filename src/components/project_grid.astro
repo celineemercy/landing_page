@@ -1,52 +1,64 @@
 ---
 import ProjectCard from './project_card.astro';
-// 1. Define the API endpoint
 const API_URL = "https://meta.welazure.dev/metadata?pageIndex=1&pageSize=10";
 
-// 2. Fetch data from your API
-let projects = []; // Start with an empty array
+
+interface ProjectData {
+    title: string;
+    type: string;
+    description: string;
+    iconUrl: string;
+    websiteUrl?: string;
+    githubUrl?: string;
+}
+
+let projects: ProjectData[] = [];
 
 try {
   const response = await fetch(API_URL);
   
   if (response.ok) {
     const data = await response.json();
-    const projectsFromApi = data.items; // Get the 'items' array from your API
+    const projectsFromApi = data.items; 
 
-    // 3. Map the API data to the format your ProjectCard component needs
-    projects = projectsFromApi.map((project) => ({
+    projects = projectsFromApi.map((project: any) => ({ 
       title: project.project_name,
       
-      // Your API doesn't have a 'type' field. 
-      // You can add "project_type": "AI" to your JSON metadata to fix this.
-      // For now, we'll use a placeholder or 'null'.
       type: project.project_type || "Project", 
       
       description: project.project_description,
       
-      // Use project_logo for the icon. If it's null, use project_image.
-      // Add a fallback to a default image if both are null.
-      iconUrl: project.project_logo || project.project_image || "/images/default_icon.png" 
+      iconUrl: project.project_logo || project.project_image || "/images/default_icon.png"
     }));
   } else {
     console.error("Failed to fetch projects:", response.status);
   }
 } catch (error) {
-  console.error("Error fetching projects:", error.message);
+  if (error instanceof Error) {
+    console.error("Error fetching projects:", error.message);
+  } else {
+    console.error("Error fetching projects:", error);
+  }
 }
 ---
 
 <section class="project-grid-container">
     <h2 class="section-title">Recent Projects by Informatics Students</h2>
-    <div class="project-grid">
-        {projects.map((project) => (
+      <div class="project-grid">
+        {/* <ProjectCard /> */}
+        {projects.map((project: ProjectData) => ( 
             <ProjectCard 
                 title={project.title}
                 type={project.type}
                 description={project.description}
                 iconUrl={project.iconUrl}
+                websiteUrl={project.websiteUrl}
+                githubUrl={project.githubUrl}
             />
         ))}
+      </div>
+    <div class="load-more-wrapper">
+        <button class="load-more-button">Load More...</button>
     </div>
 </section>
 
@@ -77,8 +89,29 @@ try {
 
     .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
     gap: 1.5rem;
     grid-template-columns: repeat(3, 1fr);
+    }
+
+    .load-more-wrapper {
+        text-align: center;
+        margin-top: 3rem;
+        margin-bottom: 2rem;
+    }
+    
+    .load-more-button {
+        background: none;
+        border: none;
+        color: #0E6333; 
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 10px 20px;
+        transition: color 0.3s;
+    }
+    
+    .load-more-button:hover {
+        color: #0A4A25; 
+        text-decoration: underline;
     }
 </style>

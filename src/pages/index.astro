@@ -17,6 +17,9 @@ import ProjectGrid from '../components/project_grid.astro';
             <section class="project-search-section">
             <div class="input-container">
                 <input type="text" placeholder="Text" id="search-input" class="search-input" />
+                    <button id="search-button" class="search-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                     </button>
             </div>
         </header>
         <ProjectGrid />
@@ -30,6 +33,7 @@ import ProjectGrid from '../components/project_grid.astro';
         padding: 0;
         background-color: #ffffff;
     }
+
     .main-header {
     font-size: 2.5rem; 
     line-height: 1;
@@ -39,34 +43,54 @@ import ProjectGrid from '../components/project_grid.astro';
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.10);
     margin-bottom: 30px;
     }
+
     .content-wrapper {
         max-width: 1200px;
         margin: 0 auto;
         padding: 2rem;
     }
+
     .main-header {
         text-align: center;
         margin-bottom: 4rem;
     }
+
     .logo-group {
         display: flex;
         justify-content: center;
         gap: 1rem;
         margin-bottom: 2rem;
     }
+
     .logo {
         height: 40px;
         width: auto;
     }
+
     .main-heading {
         font-size: 1.8rem;
         color: #0E6333;
         line-height: 1.4;
         font-weight: 300;
     }
+
     .main-heading span {
         font-weight: 600;
     }
+
+    .project-search-section {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 4rem;
+    }
+
+    .input-container {
+        display: flex;
+        position: relative;
+        width: 100%;
+        max-width: 700px;
+    }
+
     .search-input {
     width: 100%;
     max-width: 700px;
@@ -80,8 +104,35 @@ import ProjectGrid from '../components/project_grid.astro';
     outline: none; 
     transition: border-color 0.2s;
   }
+
   .search-input:focus {
     border-color: #0E6333; 
     box-shadow: 0 2px 6px rgba(56, 142, 60, 0.2);
+  }
+
+  .search-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: transparent;
+    border: none;
+    padding: 0 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0E6333;
+    transition: color 0.2s;
+    z-index: 10;
+  }
+
+  .search-button:hover {
+    color: #0E6333; 
+  }
+
+  .search-icon {
+    height: 20px;
+    width: 20px;
   }
 </style>
