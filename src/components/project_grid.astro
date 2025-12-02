@@ -15,48 +15,50 @@ interface ProjectData {
 let projects: ProjectData[] = [];
 
 try {
-  const response = await fetch(API_URL);
-  
-  if (response.ok) {
-    const data = await response.json();
-    const projectsFromApi = data.items; 
+    const response = await fetch(API_URL);
 
-    projects = projectsFromApi.map((project: any) => ({ 
-      title: project.project_name,
-      
-      type: project.project_type || "Project", 
-      
-      description: project.project_description,
-      
-      iconUrl: project.project_logo || project.project_image || "/images/default_icon.png"
-    }));
-  } else {
-    console.error("Failed to fetch projects:", response.status);
-  }
+    if (response.ok) {
+        const data = await response.json();
+        const projectsFromApi = data.items;
+
+        projects = projectsFromApi.map((project: any) => ({
+            title: project.project_name,
+
+            type: project.project_type || "Project",
+
+            description: project.project_description || "",
+
+            websiteUrl: project.domain,
+            githubUrl: project.project_link || "",
+            iconUrl: project.project_logo || project.project_image || "/images/default_icon.png"
+        }));
+    } else {
+        console.error("Failed to fetch projects:", response.status);
+    }
 } catch (error) {
-  if (error instanceof Error) {
-    console.error("Error fetching projects:", error.message);
-  } else {
-    console.error("Error fetching projects:", error);
-  }
+    if (error instanceof Error) {
+        console.error("Error fetching projects:", error.message);
+    } else {
+        console.error("Error fetching projects:", error);
+    }
 }
 ---
 
 <section class="project-grid-container">
     <h2 class="section-title">Recent Projects by Informatics Students</h2>
-      <div class="project-grid">
+    <div class="project-grid">
         {/* <ProjectCard /> */}
-        {projects.map((project: ProjectData) => ( 
-            <ProjectCard 
-                title={project.title}
-                type={project.type}
-                description={project.description}
-                iconUrl={project.iconUrl}
-                websiteUrl={project.websiteUrl}
-                githubUrl={project.githubUrl}
-            />
+        {projects.map((project: ProjectData) => (
+                <ProjectCard
+                        title={project.title}
+                        type={project.type}
+                        description={project.description}
+                        iconUrl={project.iconUrl}
+                        websiteUrl={project.websiteUrl}
+                        githubUrl={project.githubUrl}
+                />
         ))}
-      </div>
+    </div>
     <div class="load-more-wrapper">
         <button class="load-more-button">Load More...</button>
     </div>
@@ -66,7 +68,7 @@ try {
     .project-grid-container {
         padding: 2rem 0;
     }
-    
+
     .section-title {
         font-size: 1.5rem;
         color: #0E6333;
@@ -78,7 +80,7 @@ try {
         margin-bottom: 3rem;
         max-width: 600px;
     }
-    
+
     .search-input {
         width: 100%;
         padding: 0.75rem 1rem;
@@ -88,9 +90,9 @@ try {
     }
 
     .project-grid {
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(3, 1fr);
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: repeat(3, 1fr);
     }
 
     .load-more-wrapper {
@@ -98,20 +100,20 @@ try {
         margin-top: 3rem;
         margin-bottom: 2rem;
     }
-    
+
     .load-more-button {
         background: none;
         border: none;
-        color: #0E6333; 
+        color: #0E6333;
         font-size: 1rem;
         font-weight: 600;
         cursor: pointer;
         padding: 10px 20px;
         transition: color 0.3s;
     }
-    
+
     .load-more-button:hover {
-        color: #0A4A25; 
+        color: #0A4A25;
         text-decoration: underline;
     }
 </style>
