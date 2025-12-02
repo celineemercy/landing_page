@@ -1,7 +1,7 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-COPY Dockerfile .
+COPY . .
 
 RUN npm install -g pnpm
 
