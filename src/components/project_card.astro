@@ -1,16 +1,19 @@
 ---
 const { 
-    iconUrl = "./public/header_logo_prodi.png",
+    iconUrl,
     title,
     type, 
-    description, 
+    description,
+    websiteUrl,
+    githubUrl,
+
 } = Astro.props;
 ---
     <div class="project-card">
         <div class="card-image-container">
             <img
-            src={"http://meta.welazure.dev/assets/landing_page_logo.svg"} 
-            alt={"Project 1"}
+            src={iconUrl}
+            alt={title}
             class="project-image" 
         />
     </div>
@@ -20,8 +23,8 @@ const {
         <p class="project-description">{description}</p>
     </div> 
     <div class="card-actions">
-        <a href="http://panel.welazure.dev" target="_blank" class="action-button view-website">View Website</a>
-        <a href="http://GitHub.com/celineemercy/landing_page" target="_blank" class="action-button view-github">View Github Repository</a>
+        <a href={"https://" + websiteUrl} target="_blank" class="action-button view-website">View Website</a>
+        <a href={githubUrl} target="_blank" class="action-button view-github">View Github Repository</a>
     </div>
 
 <style>
