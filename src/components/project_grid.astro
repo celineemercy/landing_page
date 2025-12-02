@@ -10,6 +10,7 @@ interface ProjectData {
     iconUrl: string;
     websiteUrl?: string;
     githubUrl?: string;
+    visible: boolean;
 }
 
 let projects: ProjectData[] = [];
@@ -30,7 +31,8 @@ try {
 
             websiteUrl: project.domain,
             githubUrl: project.project_link || "",
-            iconUrl: project.project_logo || project.project_image || "/images/default_icon.png"
+            iconUrl: project.project_logo || project.project_image || "/images/default_icon.png",
+            visible: project.visible
         }));
     } else {
         console.error("Failed to fetch projects:", response.status);
@@ -49,6 +51,7 @@ try {
     <div class="project-grid">
         {/* <ProjectCard /> */}
         {projects.map((project: ProjectData) => (
+                project.visible ??
                 <ProjectCard
                         title={project.title}
                         type={project.type}
