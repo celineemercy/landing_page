@@ -51,7 +51,7 @@ try {
     <div class="project-grid">
         {/* <ProjectCard /> */}
         {projects.map((project: ProjectData) => (
-                project.visible ??
+                project.visible ?
                 <ProjectCard
                         title={project.title}
                         type={project.type}
@@ -59,7 +59,7 @@ try {
                         iconUrl={project.iconUrl}
                         websiteUrl={project.websiteUrl}
                         githubUrl={project.githubUrl}
-                />
+                /> : null
         ))}
     </div>
     <div class="load-more-wrapper">
